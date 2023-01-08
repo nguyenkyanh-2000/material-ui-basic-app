@@ -23,7 +23,7 @@ export default function ChipsArray() {
         flexWrap: "wrap",
         listStyle: "none",
         my: 0.5,
-        p: 1,
+        p: 0.5,
         boxShadow: "none",
         backgroundColor: (theme) => theme.palette.primary.light,
       }}
