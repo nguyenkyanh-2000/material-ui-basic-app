@@ -24,15 +24,17 @@ const StyledPagination = styled(Pagination)(({ theme }) => ({
 function Home() {
   const [jobs, setJobs] = useState([]);
   const [page, setPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState();
+  const [totalPages, setTotalPages] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("a");
 
   useEffect(() => {
     const fetch = async () => {
-      const jobs = await findJobsByQuery(searchQuery, page);
-      setJobs(jobs);
+      const data = await findJobsByQuery(searchQuery, page);
+      setJobs(data.jobs);
+      setTotalPages(data.totalPages);
     };
     fetch();
-  }, []);
+  }, [page, searchQuery]);
 
   return (
     <Container>
@@ -52,7 +54,11 @@ function Home() {
           </Grid>
         ))}
       </Grid>
-      <StyledPagination page={1} count={10}></StyledPagination>
+      <StyledPagination
+        page={page}
+        count={totalPages}
+        onChange={(event, value) => setPage(value)}
+      ></StyledPagination>
     </Container>
   );
 }

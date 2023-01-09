@@ -11,8 +11,11 @@ const findJobsByQuery = async (q = null, page = 0) => {
           job.skills.includes(q)
       );
 
-      return filteredJobs.slice(page * 5, page * 5 + 5);
-    } else return jobs.slice(0, 5);
+      return {
+        jobs: filteredJobs.slice(page * 5, page * 5 + 5),
+        totalPages: Math.floor(filteredJobs.length / 5),
+      };
+    } else return { jobs: jobs.slice(0, 5), totalPages: 1 };
   } catch (error) {
     console.log("error");
   }
