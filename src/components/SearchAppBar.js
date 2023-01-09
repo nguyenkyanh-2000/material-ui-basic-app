@@ -12,7 +12,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 const SearchArea = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: theme.palette.primary.light,
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
@@ -50,8 +50,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function SearchAppBar() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar sx={{ position: "static" }}>
+    <Box>
+      <AppBar
+        sx={{
+          position: "static",
+          backgroundColor: (theme) => theme.palette.primary.dark,
+        }}
+      >
         <Toolbar>
           <Typography
             variant="h6"

@@ -7,14 +7,7 @@ const ListItem = styled("li")(({ theme }) => ({
   margin: "1px",
 }));
 
-export default function ChipsArray() {
-  const [chipData, setChipData] = React.useState([
-    { key: 0, label: "Angular" },
-    { key: 1, label: "jQuery" },
-    { key: 2, label: "Polymer" },
-    { key: 3, label: "React" },
-  ]);
-
+export default function SkillsChip({ skills }) {
   return (
     <Paper
       sx={{
@@ -29,14 +22,14 @@ export default function ChipsArray() {
       }}
       component="ul"
     >
-      {chipData.map((data) => {
+      {skills.slice(0, 4).map((skill) => {
         return (
-          <ListItem key={data.key}>
+          <ListItem key={skill}>
             <Chip
               sx={{
                 backgroundColor: (theme) => theme.palette.secondary.light,
               }}
-              label={data.label}
+              label={skill}
             />
           </ListItem>
         );

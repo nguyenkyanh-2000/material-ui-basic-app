@@ -1,11 +1,9 @@
-import React, { useContext, useState } from "react";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import { Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import SkillsPaper from "./SkillsPaper";
-import { flexbox } from "@mui/system";
+import SkillsChip from "./SkillsChip";
 
 const StyledCard = styled(Card)(({ theme }) => ({
   boxShadow: "none",
@@ -18,7 +16,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
   backgroundColor: theme.palette.primary.light,
 }));
 
-function JobCard() {
+function JobCard({ title, description, skills }) {
   return (
     <StyledCard>
       <Stack>
@@ -26,14 +24,14 @@ function JobCard() {
           sx={{
             fontSize: "24px",
             textAlign: "center",
-            margin: "8px 0px",
+            margin: "16px 0px",
             p: 0.5,
             color: (theme) => theme.palette.primary.contrastText,
           }}
         >
-          Developer (NextJS, NodeJS)
+          {title}
         </Typography>
-        <SkillsPaper></SkillsPaper>
+        <SkillsChip skills={skills}></SkillsChip>
         <Typography
           sx={{
             fontSize: "16px",
@@ -43,10 +41,7 @@ function JobCard() {
             color: (theme) => theme.palette.secondary.contrastText,
           }}
         >
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.
+          {description}
         </Typography>
         <Button
           variant="contained"
@@ -56,6 +51,7 @@ function JobCard() {
             color: (theme) => theme.palette.secondary.contrastText,
             backgroundColor: (theme) => theme.palette.secondary.darker,
             width: "130px",
+            p: 0,
           }}
         >
           Learn More
