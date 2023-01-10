@@ -1,6 +1,6 @@
 import jobs from "./jobs.json";
 
-const findJobsByQuery = async (q = null, page = 0) => {
+export const findJobsByQuery = async (q = null, page = 0) => {
   try {
     if (q) {
       let filteredJobs = jobs.filter(
@@ -21,4 +21,13 @@ const findJobsByQuery = async (q = null, page = 0) => {
   }
 };
 
-export default findJobsByQuery;
+export const findJobsById = async (id = null) => {
+  try {
+    if (id) {
+      let job = jobs.find((job) => job.id === id);
+      return job;
+    } else return null;
+  } catch (error) {
+    console.log("error");
+  }
+};

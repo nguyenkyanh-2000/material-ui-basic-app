@@ -1,11 +1,12 @@
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
-import { Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import SkillsChip from "./SkillsChip";
+import JobDetailsModal from "./JobDetailsModal";
 
 const StyledCard = styled(Card)(({ theme }) => ({
+  display: "flex",
   boxShadow: "none",
   border: "1px solid black",
   width: "100%",
@@ -14,15 +15,17 @@ const StyledCard = styled(Card)(({ theme }) => ({
   height: "320px",
   margin: "auto",
   backgroundColor: theme.palette.primary.light,
+  justifyContent: "space-between",
 }));
 
-function JobCard({ title, description, skills }) {
+function JobCard({ title, description, skills, jobId }) {
   return (
     <StyledCard>
       <Stack>
         <Typography
           sx={{
-            fontSize: "24px",
+            fontSize: "18px",
+            fontWeight: "800",
             textAlign: "center",
             margin: "16px 0px",
             p: 0.5,
@@ -34,7 +37,7 @@ function JobCard({ title, description, skills }) {
         <SkillsChip skills={skills}></SkillsChip>
         <Typography
           sx={{
-            fontSize: "16px",
+            fontSize: "12px",
             textAlign: "center",
             margin: "16px 0px",
             px: 1,
@@ -43,19 +46,7 @@ function JobCard({ title, description, skills }) {
         >
           {description}
         </Typography>
-        <Button
-          variant="contained"
-          size="small"
-          sx={{
-            margin: "auto",
-            color: (theme) => theme.palette.secondary.contrastText,
-            backgroundColor: (theme) => theme.palette.secondary.darker,
-            width: "130px",
-            p: 0,
-          }}
-        >
-          Learn More
-        </Button>
+        <JobDetailsModal jobId={jobId}></JobDetailsModal>
       </Stack>
     </StyledCard>
   );

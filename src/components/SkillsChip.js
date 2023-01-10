@@ -15,8 +15,7 @@ export default function SkillsChip({ skills }) {
         justifyContent: "center",
         flexWrap: "wrap",
         listStyle: "none",
-        my: 0.5,
-        p: 0.5,
+        p: 1,
         boxShadow: "none",
         backgroundColor: (theme) => theme.palette.primary.light,
       }}
@@ -28,8 +27,10 @@ export default function SkillsChip({ skills }) {
             <Chip
               sx={{
                 backgroundColor: (theme) => theme.palette.secondary.light,
+                fontSize: "8px",
               }}
               label={skill}
+              size="small"
             />
           </ListItem>
         );

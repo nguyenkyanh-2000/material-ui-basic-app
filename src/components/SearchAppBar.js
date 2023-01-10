@@ -8,6 +8,8 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 import MoreIcon from "@mui/icons-material/MoreVert";
+import { Controller, useForm } from "react-hook-form";
+import { useSearchParams } from "react-router-dom";
 
 const SearchArea = styled("div")(({ theme }) => ({
   position: "relative",
@@ -49,6 +51,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
+  const { control, handleSubmit } = useForm();
+
+  const onSubmit = (searchQuery) => {
+    console.log(searchQuery);
+  };
+
   return (
     <Box>
       <AppBar
@@ -73,7 +81,20 @@ export default function SearchAppBar() {
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase></StyledInputBase>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Controller
+                control={control}
+                name="searchQuery"
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <StyledInputBase
+                    onBlur={onBlur} // notify when input is touched
+                    onChange={onChange} // send value to hook form
+                    checked={value}
+                    inputRef={ref}
+                  />
+                )}
+              ></Controller>
+            </form>
           </SearchArea>
           <IconButton
             size="large"
@@ -86,9 +107,8 @@ export default function SearchAppBar() {
                 sm: "none",
               },
             }}
-          >
-            <MoreIcon />
-          </IconButton>
+          />
+          <MoreIcon />
         </Toolbar>
       </AppBar>
     </Box>

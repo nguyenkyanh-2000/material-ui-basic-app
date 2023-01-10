@@ -1,10 +1,8 @@
 import "./App.css";
 import React from "react";
-import { useEffect } from "react";
 import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import findJobsByQuery from "./data/fetchData";
 
 function App() {
   return (

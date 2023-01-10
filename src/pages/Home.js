@@ -4,7 +4,7 @@ import JobCard from "../components/JobCard";
 import { Container } from "@mui/system";
 import { Pagination } from "@mui/material";
 import styled from "@emotion/styled";
-import findJobsByQuery from "../data/fetchData";
+import { findJobsByQuery } from "../data/fetchData";
 
 const StyledPagination = styled(Pagination)(({ theme }) => ({
   marginTop: theme.spacing(4),
@@ -25,24 +25,23 @@ function Home() {
   const [jobs, setJobs] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [searchQuery, setSearchQuery] = useState("a");
 
   useEffect(() => {
     const fetch = async () => {
-      const data = await findJobsByQuery(searchQuery, page);
+      const data = await findJobsByQuery("", page);
       setJobs(data.jobs);
       setTotalPages(data.totalPages);
     };
     fetch();
-  }, [page, searchQuery]);
+  }, [page]);
 
   return (
-    <Container>
+    <Container sx={{ p: 3 }} maxWidth="lg">
       <Grid
         container
-        rowSpacing={3}
-        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-        sx={{ justifyContent: "center", mt: 4 }}
+        rowSpacing={4}
+        columnSpacing={{ xs: 4, sm: 4, md: 4 }}
+        sx={{ m: 4 }}
       >
         {jobs.map((job) => (
           <Grid key={job.id} item>
@@ -50,6 +49,7 @@ function Home() {
               title={job.title}
               description={job.description}
               skills={job.skills}
+              jobId={job.id}
             ></JobCard>
           </Grid>
         ))}

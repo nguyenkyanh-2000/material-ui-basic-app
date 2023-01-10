@@ -1,7 +1,6 @@
 import React from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
 import SearchAppBar from "../components/SearchAppBar";
 
 function Layout() {
