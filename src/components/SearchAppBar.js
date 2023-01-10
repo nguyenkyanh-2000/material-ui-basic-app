@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useRef } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -10,6 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { Controller, useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SearchArea = styled("div")(({ theme }) => ({
   position: "relative",
@@ -52,9 +53,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function SearchAppBar() {
   const { control, handleSubmit } = useForm();
+  const queryRef = useRef(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
 
-  const onSubmit = (searchQuery) => {
-    console.log(searchQuery);
+  const onSubmit = () => {
+    setSearchParams({ query: queryRef.current.value });
   };
 
   return (
@@ -73,7 +77,9 @@ export default function SearchAppBar() {
             sx={{
               display: { xs: "none", sm: "block" },
               marginRight: "8px",
+              cursor: "pointer",
             }}
+            onClick={() => navigate("/")}
           >
             Job Search
           </Typography>
@@ -90,7 +96,8 @@ export default function SearchAppBar() {
                     onBlur={onBlur} // notify when input is touched
                     onChange={onChange} // send value to hook form
                     checked={value}
-                    inputRef={ref}
+                    inputRef={queryRef}
+                    placeholder="Search"
                   />
                 )}
               ></Controller>
