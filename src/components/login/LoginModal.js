@@ -19,7 +19,7 @@ const style = {
   justifyContent: "center",
 };
 
-function LoginModal() {
+function LoginModal({ callback }) {
   const navigate = useNavigate();
   const handleClose = () => {
     navigate(-1);
@@ -28,7 +28,7 @@ function LoginModal() {
   return (
     <Modal open={true} onClose={handleClose}>
       <Box sx={style}>
-        <LoginForm callback={() => {}}></LoginForm>
+        <LoginForm callback={callback}></LoginForm>
       </Box>
     </Modal>
   );
