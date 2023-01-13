@@ -9,10 +9,13 @@ const SearchArea = styled("div")(({ theme }) => ({
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginLeft: theme.spacing(0),
+  marginRight: theme.spacing(2),
   flexGrow: 1,
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(1),
   },
+  width: "100%",
+  maxWidth: "400px",
 }));
 
 export default SearchArea;

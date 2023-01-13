@@ -43,7 +43,6 @@ function Home() {
 
   return (
     <Container sx={{ p: 3 }} maxWidth="lg">
-      {" "}
       {jobs.length > 0 ? (
         <>
           <Grid

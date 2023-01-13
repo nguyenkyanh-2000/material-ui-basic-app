@@ -7,14 +7,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import AuthContext from "../../authentication/AuthContext";
-import DisplayMoreIcon from "./DisplayMoreIcon";
 import SearchArea from "./SearchArea";
 import { SearchIconWrapper } from "./SearchIconWrapper";
 import { StyledInputBase } from "./StyledInputBase";
 import { Button } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
-import Avatar from "@mui/material/Avatar";
 
 export default function SearchAppBar() {
   const { control, handleSubmit } = useForm();
@@ -89,10 +87,6 @@ export default function SearchAppBar() {
                 >
                   Logout
                 </Button>
-                <Avatar
-                  src="/images/avatar/1.jpg"
-                  sx={{ width: 40, height: 40, ml: 1 }}
-                />
               </>
             ) : (
               <Button
@@ -103,7 +97,6 @@ export default function SearchAppBar() {
                 Login
               </Button>
             )}
-            <DisplayMoreIcon></DisplayMoreIcon>
           </Box>
         </Toolbar>
       </AppBar>

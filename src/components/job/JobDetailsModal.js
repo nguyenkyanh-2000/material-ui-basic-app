@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Modal } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -6,6 +6,8 @@ import Button from "@mui/material/Button";
 import { findJobsById } from "../../data/fetchData";
 import SkillsChip from "./SkillsChip";
 import { useLocation } from "react-router-dom";
+import AuthContext from "../../authentication/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -23,8 +25,13 @@ const style = {
 function JobDetailsModal({ jobId }) {
   const [isOpen, setIsOpen] = useState(false);
   const [job, setJob] = useState("");
+  const auth = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const handleOpen = () => setIsOpen(true);
+  const handleOpen = () => {
+    if (auth.user) setIsOpen(true);
+    else navigate("/login");
+  };
   const handleClose = () => setIsOpen(false);
 
   useEffect(() => {
