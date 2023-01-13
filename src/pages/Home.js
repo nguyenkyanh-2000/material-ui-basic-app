@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Typography } from "@mui/material";
-import JobCard from "../components/JobCard";
+import JobCard from "../components/job/JobCard";
 import { Container } from "@mui/system";
 import { Pagination } from "@mui/material";
 import styled from "@emotion/styled";
@@ -30,10 +30,13 @@ function Home() {
 
   useEffect(() => {
     const fetch = async () => {
-      const data = await findJobsByQuery(searchParams.get("query"), page);
-      console.log(data.jobs);
-      setJobs(data.jobs);
-      setTotalPages(data.totalPages);
+      try {
+        const data = await findJobsByQuery(searchParams.get("query"), page);
+        setJobs(data.jobs);
+        setTotalPages(data.totalPages);
+      } catch {
+        console.log("error");
+      }
     };
     fetch();
   }, [page, searchParams]);

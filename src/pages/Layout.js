@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import Stack from "@mui/material/Stack";
-import SearchAppBar from "../components/SearchAppBar";
+import SearchAppBar from "../components/navigation/SearchAppBar";
 
 function Layout() {
   return (

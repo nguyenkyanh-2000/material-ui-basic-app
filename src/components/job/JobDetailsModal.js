@@ -3,8 +3,9 @@ import { Modal } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { findJobsById } from "../data/fetchData";
+import { findJobsById } from "../../data/fetchData";
 import SkillsChip from "./SkillsChip";
+import { useLocation } from "react-router-dom";
 
 const style = {
   position: "absolute",

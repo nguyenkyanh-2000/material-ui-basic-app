@@ -1,64 +1,40 @@
-import React, { useRef } from "react";
-import { styled, alpha } from "@mui/material/styles";
+import React, { useRef, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import IconButton from "@mui/material/IconButton";
-import MoreIcon from "@mui/icons-material/MoreVert";
 import { Controller, useForm } from "react-hook-form";
-import { useSearchParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-
-const SearchArea = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: theme.palette.primary.light,
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: theme.spacing(0),
-  flexGrow: 1,
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(1),
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch",
-      },
-    },
-  },
-}));
+import { useNavigate, useSearchParams } from "react-router-dom";
+import AuthContext from "../../authentication/AuthContext";
+import DisplayMoreIcon from "./DisplayMoreIcon";
+import SearchArea from "./SearchArea";
+import { SearchIconWrapper } from "./SearchIconWrapper";
+import { StyledInputBase } from "./StyledInputBase";
+import { Button } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
+import LoginIcon from "@mui/icons-material/Login";
+import Avatar from "@mui/material/Avatar";
 
 export default function SearchAppBar() {
   const { control, handleSubmit } = useForm();
   const queryRef = useRef(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+  const auth = useContext(AuthContext);
 
   const onSubmit = () => {
     setSearchParams({ query: queryRef.current.value });
+  };
+
+  const handlClickLogin = (event) => {
+    navigate("/login");
+  };
+
+  const handlClickLogout = (event) => {
+    auth.signout(() => {
+      navigate("/");
+    });
   };
 
   return (
@@ -93,8 +69,8 @@ export default function SearchAppBar() {
                 name="searchQuery"
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <StyledInputBase
-                    onBlur={onBlur} // notify when input is touched
-                    onChange={onChange} // send value to hook form
+                    onBlur={onBlur}
+                    onChange={onChange}
                     checked={value}
                     inputRef={queryRef}
                     placeholder="Search"
@@ -103,19 +79,32 @@ export default function SearchAppBar() {
               ></Controller>
             </form>
           </SearchArea>
-          <IconButton
-            size="large"
-            aria-label="display more actions"
-            edge="end"
-            color="inherit"
-            sx={{
-              display: {
-                xs: "block",
-                sm: "none",
-              },
-            }}
-          />
-          <MoreIcon />
+          <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "end" }}>
+            {auth?.user ? (
+              <>
+                <Button
+                  onClick={handlClickLogout}
+                  variant="contained"
+                  startIcon={<LogoutIcon />}
+                >
+                  Logout
+                </Button>
+                <Avatar
+                  src="/images/avatar/1.jpg"
+                  sx={{ width: 40, height: 40, ml: 1 }}
+                />
+              </>
+            ) : (
+              <Button
+                onClick={handlClickLogin}
+                variant="contained"
+                startIcon={<LoginIcon />}
+              >
+                Login
+              </Button>
+            )}
+            <DisplayMoreIcon></DisplayMoreIcon>
+          </Box>
         </Toolbar>
       </AppBar>
     </Box>

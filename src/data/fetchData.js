@@ -6,11 +6,10 @@ export const findJobsByQuery = async (q = null, page = 0) => {
       let filteredJobs = jobs.filter(
         (job) =>
           job.title.includes(q) ||
-          job.city.includes(q) ||
           job.description.includes(q) ||
-          job.skills.includes(q)
+          job.city.includes(q) ||
+          job.skills.some((skill) => skill.includes(q))
       );
-
       return {
         jobs: filteredJobs.slice(page * 5, page * 5 + 5),
         totalPages: Math.floor(filteredJobs.length / 5),
